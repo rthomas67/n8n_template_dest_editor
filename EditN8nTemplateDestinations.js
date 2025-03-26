@@ -15,6 +15,12 @@
     'use strict';
     /* globals jQuery, $ */
 
+    // Stuff to match the new website styles - 2025/03/26
+    let editPopupButtonStyleClassList = "btn flex items-center text-center relative justify-center px-6 font-normal whitespace-nowrap rounded-lg disabled:cursor-not-allowed btn-cta text-white font-geomanist-book min-h-12 text-large-button-text min-w-36 min-w-36"
+    let editPopupButtonStyleOverrides = "overflow: hidden; --gradient-glow-x: 100%; --gradient-glow-y: 50%; --bg-color-1: hsla(0,0%,100%,0); --bg-color-2: #ff9b26; --bg-color-3: #ff0c00; --bg-color-4: #fd8925;" +
+      " --bg-stop-1: 100%; --bg-stop-2: 150%; background: radial-gradient(5rem 80% at var(--gradient-glow-x) var(--gradient-glow-y),#fff,#ff9b26 90%),radial-gradient(5rem 80% at 100% 50%,#fff,#ff9b26 90%);" +
+      " transition-duration: .45s; transition-property: --gradient-glow-x,--gradient-glow-y,--bg-color-1,--bg-color-2,--bg-stop-1,--bg-stop-2;"
+
     function getStringArrayFromStorage(keyName) {
         var val = localStorage.getItem (keyName);
         if (val == null) {
@@ -32,7 +38,7 @@
     function addTemplateEditorCSS() {
         var cssString =
             '.template-dest-editor-root {margin: 0px;padding: 0px; flex: left}\n' +
-            '.template-dest-editor-button { display: flex; text-align: center; justify-content: space-between; padding: 2rem 24px; cursor: pointer; color: white; background-color: #1c9985; width: 100%; margin-top: 4px; font-size: 1.8rem; font-family: moderat; border-radius: 8px; border: 2px solid #1c9985;}\n' +
+            '.template-dest-editor-button { ' + editPopupButtonStyleOverrides + '}\n' +
             '.template-dest-editor-body { padding: 5px 10px 15px; margin-top: 4px; background-color:#BBDEFB; position: relative; width: 100%; min-width: 150px; min-height: 200px;}\n' +
             '.template-dest-editor-form { width: 100%; }\n' +
             '.template-dest-editor-layout { display: flex; flex-direction: column; justify-content: space-around; align-items: stretch; width: 100%; }\n' +
@@ -106,7 +112,7 @@
 
         var templateDestEditorUI = {};
         templateDestEditorUI.editorRoot = $('<div class="template-dest-editor-root"/>');
-        templateDestEditorUI.editorPopupButton = $('<button class="template-dest-editor-button">Modify Template Destinations</button>')
+        templateDestEditorUI.editorPopupButton = $('<button type="button" class="' + editPopupButtonStyleClassList + ' template-dest-editor-button"><span class="w-full"> Modify Template Destinations </span></button>')
         templateDestEditorUI.editorPopupButton.click(toggleEditableFormList);
         templateDestEditorUI.editorRoot.append(templateDestEditorUI.editorPopupButton);
 
@@ -116,7 +122,8 @@
         templateDestEditorUI.editorRoot.append(templateDestEditorUI.editableListForm);
 
         // Note: This doesn't work without the allDoneMutationObserver
-        var pageAttachElementUseWorkflowButtonContainer = $('[class^="use-template-container_"]');
+        // OLD Website before 3/26/2025 - var pageAttachElementUseWorkflowButtonContainer = $('[class^="use-template-container_"]');
+        var pageAttachElementUseWorkflowButtonContainer = $('[class^="hero-group-info"]');
         if (pageAttachElementUseWorkflowButtonContainer) {
             console.log(pageAttachElementUseWorkflowButtonContainer);
             pageAttachElementUseWorkflowButtonContainer.append(templateDestEditorUI.editorRoot);
